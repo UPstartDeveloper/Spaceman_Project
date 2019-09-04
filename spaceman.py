@@ -35,19 +35,21 @@ def is_word_guessed(secret_word, letters_guessed):
 
 def get_guessed_word(secret_word, letters_guessed):
     '''
-    A function that is used to get a string showing the letters guessed so far in the secret word and underscores for letters that have not been guessed yet.
-
-    Args:
-        secret_word (string): the random word the user is trying to guess.
-        letters_guessed (list of strings): list of letters that have been guessed so far.
-
-    Returns:
-        string: letters and underscores.  For letters in the word that the user has guessed correctly, the string should contain the letter at the correct position.  For letters in the word that the user has not yet guessed, shown an _ (underscore) instead.
-    '''
-
-    # TODO: Loop through the letters in secret word and build a string that shows the letters that have been guessed correctly so far that are saved in letters_guessed and underscores for the letters that have not been guessed yet
-
-    pass
+     A function that is used to get a string
+     showing the letters guessed so far in the secret word
+     and underscores for letters that have not been guessed yet.
+     '''
+    guess_so_far = ""
+    for i in range(len(letters_guessed)):
+        if i > len(secret_word):
+            return guess_so_far
+        if is_guess_in_word(letters_guessed[i], secret_word):
+            # decide if this index is the right place for the guessed letter
+            if letters_guessed[i] == secret_word[i]:
+                guess_so_far += letters_guessed[i] + " "
+        else:
+            guess_so_far += "_ "  # space reminds user of length of word
+    return guess_so_far
 
 
 def is_guess_in_word(guess, secret_word):
