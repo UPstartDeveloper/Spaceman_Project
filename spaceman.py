@@ -48,9 +48,17 @@ def is_guess_in_word(guess, secret_word):
 
 # A function to display letters of the alphabet not yet guessed.
 def display_alpha(alphabet, guessed_letters):
-    for i in range(len(alphabet)):
-        if alphabet[i] in guessed_letters:
-            alphabet.pop(i)
+    if not len(guessed_letters) == 0:
+        '''
+        for letter in alphabet:
+            if letter in guessed_letters:
+                alphabet.pop(letter)
+        '''
+        for i in range(len(guessed_letters)):
+            if guessed_letters[i] in alphabet:
+                remove_letter = guessed_letters[i]
+                alphabet.remove(remove_letter)
+
     for letter in alphabet:
         print(letter, end="")
     print("")
@@ -66,16 +74,18 @@ def spaceman(secret_word):
     while not (is_word_guessed(secret_word, letters_guessed) and guesses_left == 0):
         print("-------------------------------------")
         user_guess = input("Enter a letter: ")
-        letters_guessed.append(user_guess)
+        if user_guess not in letters_guessed:
+            letters_guessed.append(user_guess)
+
         if is_guess_in_word(user_guess, secret_word):
             print("Your guess appears in the word!")
         else:
             print("Sorry your guess is not in the word, try again.")
             guesses_left -= 1
-            if not guesses_left == 0:
-                print(f"You have {guesses_left} incorrect guesses left.")
-                print(get_guessed_word(secret_word, letters_guessed))
-                display_alpha(alpha, letters_guessed)
+        if not guesses_left == 0:
+            print(f"You have {guesses_left} incorrect guesses left.")
+            print(get_guessed_word(secret_word, letters_guessed))
+            display_alpha(alpha, letters_guessed)
         if is_word_guessed(secret_word, letters_guessed):
             print("You won!")
         if guesses_left == 0:
@@ -88,4 +98,4 @@ def spaceman(secret_word):
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
-spaceman(load_word())
+spaceman(secret_word)
