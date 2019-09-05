@@ -63,11 +63,24 @@ def spaceman(secret_word):
           "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
           .format(guesses_left))
-    while not guesses_left == 0:
+    while not (is_word_guessed(secret_word, letters_guessed) and guesses_left == 0):
         print("-------------------------------------")
         user_guess = input("Enter a letter: ")
         letters_guessed.append(user_guess)
-
+        if is_guess_in_word(user_guess, secret_word):
+            print("Your guess appears in the word!")
+        else:
+            print("Sorry your guess is not in the word, try again.")
+            guesses_left -= 1
+            if not guesses_left == 0:
+                print(f"You have {guesses_left} incorrect guesses left.")
+                print(get_guessed_word(secret_word, letters_guessed))
+                display_alpha(alpha, letters_guessed)
+        if is_word_guessed(secret_word, letters_guessed):
+            print("You won!")
+        if guesses_left == 0:
+            print("Sorry you didn't win, try again!")
+            print(f"The word was: {secret_word}.")
 
 
 # These function calls will start the game
@@ -75,4 +88,4 @@ def spaceman(secret_word):
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
-# spaceman(load_word())
+spaceman(load_word())
