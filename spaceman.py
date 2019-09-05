@@ -1,4 +1,5 @@
 import random
+import string
 
 
 def load_word():
@@ -49,14 +50,20 @@ def is_guess_in_word(guess, secret_word):
 def spaceman(secret_word):
     guesses_left = 7
     print("Welcome to Spaceman! \n" +
-          "The secret word contains {} letters. \n".format(guesses_left) +
+          "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
-          .format(len(secret_word)))
-    # while not guesses_left == 0:, commented so no infinite loop occurs
-    print("-------------------------------------")
+          .format(guesses_left))
+    while not guesses_left == 0:
+        print("-------------------------------------")
+        user_guess = input("Enter a letter: ")
+        letters_guessed.append(user_guess)
 
 
 # These function calls will start the game
-print(len("You have 7 incorrect guesses, please "))
+# print(len("You have 7 incorrect guesses, please "))
+alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
+for letter in alpha:
+    print(letter, end="")
 secret_word = load_word()
-spaceman(load_word())
+letters_guessed = list()
+# spaceman(load_word())
