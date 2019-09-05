@@ -1,5 +1,5 @@
 import random
-import string
+import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 
 
 def load_word():
@@ -46,6 +46,16 @@ def is_guess_in_word(guess, secret_word):
     return (guess in secret_word)
 
 
+# A function to display letters of the alphabet not yet guessed.
+def display_alpha(alphabet, guessed_letters):
+    for i in range(len(alphabet)):
+        if alphabet[i] in guessed_letters:
+            alphabet.pop(i)
+    for letter in alphabet:
+        print(letter, end="")
+    print("")
+
+
 # A function that controls the game of spaceman.
 def spaceman(secret_word):
     guesses_left = 7
@@ -59,11 +69,10 @@ def spaceman(secret_word):
         letters_guessed.append(user_guess)
 
 
+
 # These function calls will start the game
 # print(len("You have 7 incorrect guesses, please "))
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
-for letter in alpha:
-    print(letter, end="")
 secret_word = load_word()
 letters_guessed = list()
 # spaceman(load_word())
