@@ -40,31 +40,23 @@ def get_guessed_word(secret_word, letters_guessed):
     return guess_so_far
 
 
+# A function to check if the guessed letter is in the secret word.
 def is_guess_in_word(guess, secret_word):
-    # A function to check if the guessed letter is in the secret word
     return (guess in secret_word)
 
 
+# A function that controls the game of spaceman.
 def spaceman(secret_word):
-    '''
-    A function that controls the game of spaceman. Will start spaceman in the command line.
-
-    Args:
-      secret_word (string): the secret word to guess.
-
-    '''
-
-    # TODO: show the player information about the game according to the project spec
-
-    # TODO: Ask the player to guess one letter per round and check that it is only one letter
-
-    # TODO: Check if the guessed letter is in the secret or not and give the player feedback
-
-    # TODO: show the guessed word so far
-
-    # TODO: check if the game has been won or lost
-# These function calls that will start the game
+    guesses_left = 7
+    print("Welcome to Spaceman! \n" +
+          "The secret word contains {} letters. \n".format(guesses_left) +
+          "You have {} incorrect guesses, please enter one letter per round."
+          .format(len(secret_word)))
+    # while not guesses_left == 0:, commented so no infinite loop occurs
+    print("-------------------------------------")
 
 
+# These function calls will start the game
+print(len("You have 7 incorrect guesses, please "))
 secret_word = load_word()
 spaceman(load_word())
