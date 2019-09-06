@@ -48,6 +48,10 @@ def display_alpha(alphabet, guessed_letters):
         print(letter, end="")
     print("")
 
+# A function that prints a dashed line to divide the output into sections.
+def divide():
+    print("-------------------------------------")
+
 
 # A function that controls the game of spaceman.
 def spaceman(secret_word):
@@ -57,15 +61,15 @@ def spaceman(secret_word):
           "You have {} incorrect guesses, please enter one letter per round."
           .format(guesses_left))
     while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
-        print("-------------------------------------")
+        divide()
         user_guess = input("Enter a letter: ")
         while not len(user_guess) == 1:
             print("You may only guess one letter at a time.")
-            print("-------------------------------------")
+            divide()
             user_guess = input("Please enter a new letter as your guess: ")
         while user_guess in letters_guessed:
             print("You have already guessed that letter before.")
-            print("-------------------------------------")
+            divide()
             user_guess = input("Please enter a new letter as your guess: ")
         if user_guess not in letters_guessed:
             letters_guessed.append(user_guess)
