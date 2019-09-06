@@ -85,9 +85,12 @@ def spaceman(secret_word):
                 print("You won!")
             else:
                 print(get_guessed_word(secret_word, letters_guessed))
+                print("These letters haven't been guessed yet: ", end="")
                 display_alpha(alpha, letters_guessed)
         # if the guess is wrong, and the user is out of tries
-        elif guesses_left == 0:
+        # elif guesses_left == 0:
+        elif not is_guess_in_word(user_guess, secret_word) and guesses_left == 1:
+            guesses_left -= 1
             print("Sorry you didn't win, try again!")
             print(f"The word was: {secret_word}.")
         # if the guess is wrong, and user still has guesses guesses_left
@@ -96,6 +99,7 @@ def spaceman(secret_word):
             guesses_left -= 1
             print(f"You have {guesses_left} incorrect guesses left.")
             print(get_guessed_word(secret_word, letters_guessed))
+            print("These letters haven't been guessed yet: ", end="")
             display_alpha(alpha, letters_guessed)
 
 # These function calls will start the game
