@@ -3,16 +3,10 @@ import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet
 
 
 def load_word():
-    '''
-    A function that reads a text file of words and randomly selects one to use
-    as the secret word from the list.
-    Returns:
-           string: The secret word to be used in the spaceman guessing game
-    '''
     f = open('words.txt', 'r')
     words_list = f.readlines()
     f.close()
-
+    # This function decides which word the user will guess.
     words_list = words_list[0].split(' ')
     secret_word = random.choice(words_list)
     return secret_word
@@ -49,11 +43,6 @@ def is_guess_in_word(guess, secret_word):
 # A function to display letters of the alphabet not yet guessed.
 def display_alpha(alphabet, guessed_letters):
     if not len(guessed_letters) == 0:
-        '''
-        for letter in alphabet:
-            if letter in guessed_letters:
-                alphabet.pop(letter)
-        '''
         for i in range(len(guessed_letters)):
             if guessed_letters[i] in alphabet:
                 remove_letter = guessed_letters[i]
@@ -85,10 +74,10 @@ def spaceman(secret_word):
                 print("You won!")
             else:
                 print(get_guessed_word(secret_word, letters_guessed))
+                print(f"You have {guesses_left} incorrect guesses left.")
                 print("These letters haven't been guessed yet: ", end="")
                 display_alpha(alpha, letters_guessed)
         # if the guess is wrong, and the user is out of tries
-        # elif guesses_left == 0:
         elif not is_guess_in_word(user_guess, secret_word) and guesses_left == 1:
             guesses_left -= 1
             print("Sorry you didn't win, try again!")
@@ -107,4 +96,5 @@ def spaceman(secret_word):
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
+print(secret_word)
 spaceman(secret_word)
