@@ -1,5 +1,15 @@
 import random
 import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
+'''
+First attempt at displaying image of a spaceman using ASCII art.
+Image generated from this online tool:
+https://manytools.org/hacker-tools/convert-images-to-ascii-art/go
+'''
+import Image
+
+image = Image.open('astronaut.png')
+image.show()
+
 
 
 def load_word():
@@ -92,7 +102,6 @@ def spaceman(secret_word):
         # if the guess appears in the word
         if is_guess_in_word(user_guess, secret_word):
             print("Your guess appears in the word!")
-            display_incorrect(incorrect_guessed_letters)
             # if the whole word has been guessed
             if is_word_guessed(secret_word, letters_guessed):
                 print("You won!")
@@ -108,7 +117,6 @@ def spaceman(secret_word):
             guesses_left -= 1
             print("Sorry you didn't win, try again!")
             print(f"The word was: {secret_word}.")
-            display_incorrect(incorrect_guessed_letters)
         # if the guess is wrong, and user still has guesses guesses_left
         elif not is_guess_in_word(user_guess, secret_word):
             add_to_incorrect(user_guess, incorrect_guessed_letters)
@@ -119,8 +127,8 @@ def spaceman(secret_word):
             print("These letters haven't been guessed yet: ", end="")
             display_alpha(alpha, letters_guessed)
 
-# These function calls will start the game
 
+# These function calls will start the game
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
