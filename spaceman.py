@@ -77,21 +77,26 @@ def spaceman(secret_word):
         if user_guess not in letters_guessed:
             letters_guessed.append(user_guess)
 
+        # if the guess appears in the word
         if is_guess_in_word(user_guess, secret_word):
             print("Your guess appears in the word!")
-        elif not is_guess_in_word(user_guess, secret_word) and not guesses_left == 0:
+            # if the whole word has been guessed
+            if is_word_guessed(secret_word, letters_guessed):
+                print("You won!")
+            else:
+                print(get_guessed_word(secret_word, letters_guessed))
+                display_alpha(alpha, letters_guessed)
+        # if the guess is wrong, and the user is out of tries
+        elif guesses_left == 0:
+            print("Sorry you didn't win, try again!")
+            print(f"The word was: {secret_word}.")
+        # if the guess is wrong, and user still has guesses guesses_left
+        elif not is_guess_in_word(user_guess, secret_word):
             print("Sorry your guess is not in the word, try again.")
             guesses_left -= 1
-        if not guesses_left == 0:
             print(f"You have {guesses_left} incorrect guesses left.")
             print(get_guessed_word(secret_word, letters_guessed))
             display_alpha(alpha, letters_guessed)
-        if is_word_guessed(secret_word, letters_guessed):
-            print("You won!")
-        if guesses_left == 0:
-            print("Sorry you didn't win, try again!")
-            print(f"The word was: {secret_word}.")
-
 
 # These function calls will start the game
 # print(len("You have 7 incorrect guesses, please "))
