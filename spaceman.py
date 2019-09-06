@@ -59,6 +59,10 @@ def spaceman(secret_word):
     while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
         print("-------------------------------------")
         user_guess = input("Enter a letter: ")
+        while user_guess in letters_guessed:
+            print("You have already guessed that letter before.")
+            print("-------------------------------------")
+            user_guess = input("Please enter a new letter as your guess: ")
         if user_guess not in letters_guessed:
             letters_guessed.append(user_guess)
 
