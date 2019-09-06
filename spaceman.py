@@ -23,15 +23,11 @@ def is_word_guessed(secret_word, letters_guessed):
 # Returns a string after each guess to represent user's progress
 def get_guessed_word(secret_word, letters_guessed):
     guess_so_far = ""
-    for i in range(len(letters_guessed)):
-        if i > len(secret_word):
-            return guess_so_far
-        if is_guess_in_word(letters_guessed[i], secret_word):
-            # decide if this index is the right place for the guessed letter
-            if letters_guessed[i] == secret_word[i]:
-                guess_so_far += letters_guessed[i] + " "
+    for letter in secret_word:
+        if letter in letters_guessed:
+            guess_so_far += letter
         else:
-            guess_so_far += "_ "  # space reminds user of length of word
+            guess_so_far += "_ "
     return guess_so_far
 
 
@@ -96,5 +92,4 @@ def spaceman(secret_word):
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
-print(secret_word)
 spaceman(secret_word)
