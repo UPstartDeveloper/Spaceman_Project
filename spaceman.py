@@ -55,7 +55,7 @@ def divide():
 
 # A function that controls the game of spaceman.
 def spaceman(secret_word):
-    guesses_left = 7
+    guesses_left = len(secret_word)
     print("Welcome to Spaceman! \n" +
           "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
