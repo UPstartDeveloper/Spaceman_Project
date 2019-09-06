@@ -88,8 +88,12 @@ def spaceman(secret_word):
             display_alpha(alpha, letters_guessed)
 
 # These function calls will start the game
-# print(len("You have 7 incorrect guesses, please "))
+
 alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 secret_word = load_word()
 letters_guessed = list()
-spaceman(secret_word)
+
+control = "Yes"
+while control == "Yes" or control == "yes":
+    spaceman(secret_word)
+    control = input("Would you like to play again? Enter 'Yes' or 'No': ")
