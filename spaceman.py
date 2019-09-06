@@ -71,7 +71,7 @@ def spaceman(secret_word):
           "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
           .format(guesses_left))
-    while not (is_word_guessed(secret_word, letters_guessed) and guesses_left == 0):
+    while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
         print("-------------------------------------")
         user_guess = input("Enter a letter: ")
         if user_guess not in letters_guessed:
@@ -79,7 +79,7 @@ def spaceman(secret_word):
 
         if is_guess_in_word(user_guess, secret_word):
             print("Your guess appears in the word!")
-        else:
+        elif not is_guess_in_word(user_guess, secret_word) and not guesses_left == 0:
             print("Sorry your guess is not in the word, try again.")
             guesses_left -= 1
         if not guesses_left == 0:
