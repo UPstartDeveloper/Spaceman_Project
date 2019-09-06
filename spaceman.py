@@ -48,14 +48,29 @@ def display_alpha(alphabet, guessed_letters):
         print(letter, end="")
     print("")
 
+
 # A function that prints a dashed line to divide the output into sections.
 def divide():
     print("-------------------------------------")
 
 
+# A function that builds a list of incorrect guesses.
+def add_to_incorrect(letter, list_of_letters):
+    list_of_letters.append(letter)
+
+
+# A function that displays a list of incorrect guesses.
+def display_incorrect(list_of_incorrect):
+    print("Here are the letters you guessed incorrectly:", end=" ")
+    for letter in list_of_incorrect:
+        print(letter, end="")
+    print("")  # moves cursor to next line for formatting output
+
+
 # A function that controls the game of spaceman.
 def spaceman(secret_word):
     guesses_left = len(secret_word)
+    incorrect_guessed_letters = list()
     print("Welcome to Spaceman! \n" +
           "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
@@ -77,9 +92,11 @@ def spaceman(secret_word):
         # if the guess appears in the word
         if is_guess_in_word(user_guess, secret_word):
             print("Your guess appears in the word!")
+            display_incorrect(incorrect_guessed_letters)
             # if the whole word has been guessed
             if is_word_guessed(secret_word, letters_guessed):
                 print("You won!")
+                display_incorrect(incorrect_guessed_letters)
             else:
                 print(get_guessed_word(secret_word, letters_guessed))
                 print(f"You have {guesses_left} incorrect guesses left.")
@@ -87,11 +104,14 @@ def spaceman(secret_word):
                 display_alpha(alpha, letters_guessed)
         # if the guess is wrong, and the user is out of tries
         elif not is_guess_in_word(user_guess, secret_word) and guesses_left == 1:
+            add_to_incorrect(user_guess, incorrect_guessed_letters)
             guesses_left -= 1
             print("Sorry you didn't win, try again!")
             print(f"The word was: {secret_word}.")
+            display_incorrect(incorrect_guessed_letters)
         # if the guess is wrong, and user still has guesses guesses_left
         elif not is_guess_in_word(user_guess, secret_word):
+            add_to_incorrect(user_guess, incorrect_guessed_letters)
             print("Sorry your guess is not in the word, try again.")
             guesses_left -= 1
             print(f"You have {guesses_left} incorrect guesses left.")
