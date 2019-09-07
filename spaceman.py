@@ -2,15 +2,13 @@ import random
 from PIL import Image
 import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 '''
-First attempt at displaying image of a spaceman using ASCII art.
+Attempt at displaying image of a spaceman using ASCII art.
 1. Image from here:
 http://www.howmanyarethere.net/how-many-astronauts-walked-on-the-moon-surface/
 2. Image generated from this online tool:
 https://manytools.org/hacker-tools/convert-images-to-ascii-art/go
 '''
 image = Image.open('astronaut.png')
-image.show()
-
 
 
 def load_word():
@@ -118,6 +116,9 @@ def spaceman(secret_word):
             guesses_left -= 1
             print("Sorry you didn't win, try again!")
             print(f"The word was: {secret_word}.")
+            print("Here is your Spaceman (opens in a new window): ")
+            image.show()
+            divide()
         # if the guess is wrong, and user still has guesses guesses_left
         elif not is_guess_in_word(user_guess, secret_word):
             add_to_incorrect(user_guess, incorrect_guessed_letters)
@@ -140,3 +141,4 @@ while control == "Yes" or control == "yes":
     letters_guessed = []
     secret_word = load_word()
     control = input("Would you like to play again? Enter 'Yes' or 'No': ")
+    image.close()
