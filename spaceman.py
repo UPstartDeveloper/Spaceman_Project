@@ -84,17 +84,23 @@ def spaceman(secret_word):
           "The secret word contains {} letters. \n".format(len(secret_word)) +
           "You have {} incorrect guesses, please enter one letter per round."
           .format(guesses_left))
+    # Enters a loop to prompt user for guesses
     while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
         divide()
         user_guess = input("Enter a letter: ")
+        # if the guess is longer than one letter:
         while not len(user_guess) == 1:
             print("You may only guess one letter at a time.")
             divide()
-            user_guess = input("Please enter a new letter as your guess: ")
+            user_guess = input("Please enter a single letter as your guess: ")
+        # if the letter has already been guessed before
         while user_guess in letters_guessed:
             print("You have already guessed that letter before.")
             divide()
+            print("These letters haven't been guessed yet: ", end="")
+            display_alpha(alpha, letters_guessed)
             user_guess = input("Please enter a new letter as your guess: ")
+        # if the user enters a valid guess, add to guessed letters
         if user_guess not in letters_guessed:
             letters_guessed.append(user_guess)
 
@@ -105,7 +111,7 @@ def spaceman(secret_word):
             if is_word_guessed(secret_word, letters_guessed):
                 print("You won!")
                 display_incorrect(incorrect_guessed_letters)
-            else:
+            else:  # more letters need to be guessed
                 print(get_guessed_word(secret_word, letters_guessed))
                 print(f"You have {guesses_left} incorrect guesses left.")
                 print("These letters haven't been guessed yet: ", end="")
@@ -131,8 +137,12 @@ def spaceman(secret_word):
 
 
 # These function calls will start the game
-alpha = list(string.ascii_lowercase)  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
+'''
+Creating list of alphabetic letters.
+Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
+'''
 secret_word = load_word()
+alpha = list(string.ascii_lowercase)
 letters_guessed = list()
 
 control = "Yes"
