@@ -36,7 +36,7 @@ def switch_secret_word(secret_word):
         if len(word) == len(secret_word):
             susbstitute_words.append(word)  # add all words of same length for consideration
         for i in range(len(word)):
-            if not guess_so_far[i] == "_ " and not word[i] == guess_so_far[i]:
+            if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
                 susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
     new_secret = random.choice(susbstitute_words)
     return new_secret
@@ -121,9 +121,12 @@ def spaceman(secret_word):
             print("These letters haven't been guessed yet: ", end="")
             display_alpha(alpha, letters_guessed)
             user_guess = input("Please enter a new letter as your guess: ")
-        # if the user enters a valid guess, add to guessed letters
+
+        # if the user enters a valid guess
         if user_guess not in letters_guessed:
-            letters_guessed.append(user_guess)
+            letters_guessed.append(user_guess)  # add the letter to letters_guessed
+            # secret_word = switch_secret_word(secret_word) # switch the secret word
+            # print("You have a new word to guess: {}".format(secret_word))  # *used for debugging switch_secret_word*
 
         # if the guess appears in the word
         if is_guess_in_word(user_guess, secret_word):
