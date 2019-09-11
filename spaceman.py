@@ -10,15 +10,30 @@ https://manytools.org/hacker-tools/convert-images-to-ascii-art/go
 '''
 image = Image.open('astronaut.png')
 
-# A function that chooses the word user needs to guess. 
-def load_word():
+
+# A function that creates a list of words from words.txt.
+def generate_words_list():
     f = open('words.txt', 'r')
     words_list = f.readlines()
     f.close()
-    # This function decides which word the user will guess.
     words_list = words_list[0].split(' ')
+    return words_list
+
+
+# A function that chooses the word user needs to guess.
+def load_word(words_list):
     secret_word = random.choice(words_list)
     return secret_word
+
+
+# A function to switch the secret word for another (Sinister Spaceman).
+def switch_secret_word(secret_word):
+    new_secret = ""  # return value
+    same_len = list()  # captures words of equal length to secret_word
+    all_words = generate_words_list()
+    for word in all_words:
+        if len(word) == len(secret_word):
+            
 
 
 # Checks if all the letters of the secret word have been guessed.
@@ -141,7 +156,7 @@ def spaceman(secret_word):
 Creating list of alphabetic letters.
 Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 '''
-secret_word = load_word()
+secret_word = load_word(generate_words_list())
 alpha = list(string.ascii_lowercase)
 letters_guessed = list()
 
@@ -149,6 +164,6 @@ control = "Yes"
 while control == "Yes" or control == "yes":
     spaceman(secret_word)
     letters_guessed = []
-    secret_word = load_word()
+    secret_word = load_word(generate_words_list())
     control = input("Would you like to play again? Enter 'Yes' or 'No': ")
     image.close()
