@@ -29,11 +29,17 @@ def load_word(words_list):
 # A function to switch the secret word for another (Sinister Spaceman).
 def switch_secret_word(secret_word):
     new_secret = ""  # return value
-    same_len = list()  # captures words of equal length to secret_word
+    susbstitute_words = list()  # captures words of equal length to secret_word
     all_words = generate_words_list()
+    guess_so_far = get_guessed_word(secret_word, letters_guessed)  # represents letters user has correct so far
     for word in all_words:
         if len(word) == len(secret_word):
-            
+            susbstitute_words.append(word)  # add all words of same length for consideration
+        for i in range(len(word)):
+            if not guess_so_far[i] == "_ " and not word[i] == guess_so_far[i]:
+                susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
+    new_secret = random.choice(susbstitute_words)
+    return new_secret
 
 
 # Checks if all the letters of the secret word have been guessed.
@@ -166,4 +172,3 @@ while control == "Yes" or control == "yes":
     letters_guessed = []
     secret_word = load_word(generate_words_list())
     control = input("Would you like to play again? Enter 'Yes' or 'No': ")
-    image.close()
