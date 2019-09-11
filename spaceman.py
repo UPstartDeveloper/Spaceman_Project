@@ -10,7 +10,7 @@ https://manytools.org/hacker-tools/convert-images-to-ascii-art/go
 '''
 image = Image.open('astronaut.png')
 
-
+# A function that chooses the word user needs to guess. 
 def load_word():
     f = open('words.txt', 'r')
     words_list = f.readlines()
