@@ -35,9 +35,17 @@ def switch_secret_word(secret_word):
     for word in all_words:
         if len(word) == len(secret_word):
             susbstitute_words.append(word)  # add all words of same length for consideration
-        for i in range(len(word)):
-            if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
-                susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
+        '''
+        try-except error handling
+        '''
+        try:
+            for i in range(len(word)):
+                if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
+                    susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
+        except:
+            for for i in range(min(0, len(word))):
+                if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
+                    susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
     new_secret = random.choice(susbstitute_words)
     return new_secret
 
@@ -125,23 +133,24 @@ def spaceman(secret_word):
         # if the user enters a valid guess
         if user_guess not in letters_guessed:
             letters_guessed.append(user_guess)  # add the letter to letters_guessed
-            # secret_word = switch_secret_word(secret_word) # switch the secret word
-            # print("You have a new word to guess: {}".format(secret_word))  # *used for debugging switch_secret_word*
 
-        # if the guess appears in the word
-        if is_guess_in_word(user_guess, secret_word):
+        # if the guess is correct and more letters need to be guessed
+        if is_guess_in_word(user_guess, secret_word) and not is_word_guessed(secret_word, letters_guessed):
             print("Your guess appears in the word!")
-            # if the whole word has been guessed
-            if is_word_guessed(secret_word, letters_guessed):
-                print("You won!")
-                display_incorrect(incorrect_guessed_letters)
-            else:  # more letters need to be guessed
-                print(get_guessed_word(secret_word, letters_guessed))
-                print(f"You have {guesses_left} incorrect guesses left.")
-                print("These letters haven't been guessed yet: ", end="")
-                display_alpha(alpha, letters_guessed)
+            print(get_guessed_word(secret_word, letters_guessed))
+            print(f"You have {guesses_left} incorrect guesses left.")
+            print("These letters haven't been guessed yet: ", end="")
+            display_alpha(alpha, letters_guessed)
+            secret_word = switch_secret_word(secret_word)  # switch the secret word
+            print("You have a new word to guess: {}".format(secret_word))  # *used for debugging switch_secret_word*
+            divide()
+        # if the whole word has been guessed
+        elif is_word_guessed(secret_word, letters_guessed):
+            print("Your guess appears in the word!")
+            print("You won!")
+            display_incorrect(incorrect_guessed_letters)
         # if the guess is wrong, and the user is out of tries
-        elif not is_guess_in_word(user_guess, secret_word) and guesses_left == 1:
+        if not is_guess_in_word(user_guess, secret_word) and guesses_left == 1:
             add_to_incorrect(user_guess, incorrect_guessed_letters)
             guesses_left -= 1
             print("Sorry you didn't win, try again!")
