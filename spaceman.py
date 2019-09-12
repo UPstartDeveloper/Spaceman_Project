@@ -42,7 +42,7 @@ def switch_secret_word(secret_word):
             for i in range(len(word)):
                 if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
                     susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
-        except:
+        except IndexError:
             for for i in range(min(0, len(word))):
                 if not guess_so_far[i] == "_" or not guess_so_far[i] == " " and not word[i] == guess_so_far[i]:
                     susbstitute_words.pop(i)  # remove words which don't have same letters as those guessed correctly
