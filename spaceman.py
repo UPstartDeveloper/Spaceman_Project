@@ -1,8 +1,8 @@
 import random
 import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
 '''
-Attempt at displaying image of a spaceman using ASCII art.
-1. Image from here:
+Image module used for showing spaceman image.
+1. ASCII image from here:
 http://www.howmanyarethere.net/how-many-astronauts-walked-on-the-moon-surface/
 2. Image generated from this online tool:
 https://manytools.org/hacker-tools/convert-images-to-ascii-art/go
@@ -33,7 +33,7 @@ def load_word(words_list):
     secret_word = random.choice(words_list)
     return secret_word
 
-'''
+
 def switch_secret_word(secret_word):
     """
      A function to switch the secret word for another (Sinister Spaceman).
@@ -66,7 +66,7 @@ def switch_secret_word(secret_word):
     new_secret = random.choice(substitute_words)
 
     return new_secret
-'''
+
 
 def is_word_guessed(secret_word, letters_guessed):
     """
@@ -195,7 +195,7 @@ def spaceman(secret_word):
 
         # if the user enters a valid guess
         if user_guess not in letters_guessed:
-            letters_guessed.append(user_guess)  # add the letter to letters_guessed
+            letters_guessed.append(user_guess)  # append letter to letters_guessed
 
         # if the guess is correct and more letters need to be guessed
         if is_guess_in_word(user_guess, secret_word) and not is_word_guessed(secret_word, letters_guessed):
@@ -205,9 +205,12 @@ def spaceman(secret_word):
             print("These letters haven't been guessed yet: ", end="")
             display_alpha(alpha, letters_guessed)
             print("here")
-            # secret_word = switch_secret_word(secret_word)  # switch the secret word
-            # print("You have a new word to guess: {}".format(secret_word))  # *used for debugging switch_secret_word*
-            # divide()
+            '''
+            Adding Sinister Spaceman function to spaceman()
+            secret_word = switch_secret_word(secret_word)  # switch the secret
+            print("You have a new word to guess: {}".format(secret_word))  #used for debugging switch_secret_word*
+            divide()
+            '''
         # if the whole word has been guessed
         elif is_word_guessed(secret_word, letters_guessed):
             print("Your guess appears in the word!")
@@ -241,16 +244,33 @@ secret_word = load_word(generate_words_list())
 alpha = list(string.ascii_lowercase)
 letters_guessed = list()
 
-# Loops through game until user ready to quit.
-control = "Yes"
-while control == "Yes" or control == "yes":
-    spaceman(secret_word)
-    letters_guessed = []
-    secret_word = load_word(generate_words_list())
-    control = input("Would you like to play again? Enter 'Yes' or 'No': ")
+def test_is_guess():
+    """A test function for is_guess_in_word()."""
+    assert is_guess_in_word("l", "love") is True, "is_guess_in_word isn't working as planned."
+
+
+def test_get_guessed():
+    """A function to test get_guessed_word()."""
+    assert get_guessed_word("pizza", ["p", "i", "z", "z", "a"]) == "pizza", "get_guessed_word isn't working as expected."
+
+
+def test_switch():
+    """A function to test switch_secret_word()."""
+    assert len(switch_secret_word("games")) == 5, "switch secret word is not replacing words of same length."
+
 
 '''
-Main function used for debugging.
+# Main function used for debugging.
 if __name__ == '__main__':
-    spaceman()
-'''
+    test_switch()
+    test_get_guessed()
+    test_is_guess()
+
+    # Loop to control Spaceman game.
+    control = "Yes"
+    while control == "Yes" or control == "yes":
+        spaceman(secret_word)
+        letters_guessed = []
+        secret_word = load_word(generate_words_list())
+        control = input("Would you like to play again? Enter 'Yes' or 'No': ")
+    '''
