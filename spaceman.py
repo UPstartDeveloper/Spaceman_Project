@@ -140,7 +140,7 @@ def divide():
     Input: none.
     Output: none.
     """
-    print("-------------------------------------")
+    return "-------------------------------------"
 
 
 def add_to_incorrect(letter, list_of_letters):
@@ -178,17 +178,17 @@ def spaceman(secret_word):
           .format(guesses_left))
     # Enters a loop to prompt user for guesses
     while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
-        divide()
+        print(divide())
         user_guess = input("Enter a letter: ")
         # if the guess is longer than one letter:
         while not len(user_guess) == 1:
             print("You may only guess one letter at a time.")
-            divide()
+            print(divide())
             user_guess = input("Please enter a single letter as your guess: ")
         # if the letter has already been guessed before
         while user_guess in letters_guessed:
             print("You have already guessed that letter before.")
-            divide()
+            print(divide())
             print("These letters haven't been guessed yet: ", end="")
             display_alpha(alpha, letters_guessed)
             user_guess = input("Please enter a new letter as your guess: ")
@@ -224,7 +224,7 @@ def spaceman(secret_word):
             print(f"The word was: {secret_word}.")
             print("Here is your Spaceman (opens in a new window): ")
             image.show()
-            divide()
+            print(divide())
         # if the guess is wrong, and user still has guesses guesses_left
         elif not is_guess_in_word(user_guess, secret_word):
             add_to_incorrect(user_guess, incorrect_guessed_letters)
@@ -244,33 +244,11 @@ secret_word = load_word(generate_words_list())
 alpha = list(string.ascii_lowercase)
 letters_guessed = list()
 
-def test_is_guess():
-    """A test function for is_guess_in_word()."""
-    assert is_guess_in_word("l", "love") is True, "is_guess_in_word isn't working as planned."
-
-
-def test_get_guessed():
-    """A function to test get_guessed_word()."""
-    assert get_guessed_word("pizza", ["p", "i", "z", "z", "a"]) == "pizza", "get_guessed_word isn't working as expected."
-
-
-def test_switch():
-    """A function to test switch_secret_word()."""
-    assert len(switch_secret_word("games")) == 5, "switch secret word is not replacing words of same length."
-
-
-'''
-# Main function used for debugging.
+# Loop to control Spaceman game.
 if __name__ == '__main__':
-    test_switch()
-    test_get_guessed()
-    test_is_guess()
-
-    # Loop to control Spaceman game.
     control = "Yes"
     while control == "Yes" or control == "yes":
         spaceman(secret_word)
         letters_guessed = []
         secret_word = load_word(generate_words_list())
         control = input("Would you like to play again? Enter 'Yes' or 'No': ")
-    '''
