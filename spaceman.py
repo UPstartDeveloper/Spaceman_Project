@@ -1,5 +1,5 @@
 import random
-import string  # Credit to https://stackoverflow.com/questions/16060899/alphabet-range-on-python
+import string  # Credit to https://tinyurl.com/y6mkahse
 '''
 Image module used for showing spaceman image.
 1. ASCII image from here:
@@ -177,7 +177,8 @@ def spaceman(secret_word):
           "You have {} incorrect guesses, please enter one letter per round."
           .format(guesses_left))
     # Enters a loop to prompt user for guesses
-    while not is_word_guessed(secret_word, letters_guessed) and not guesses_left == 0:
+    while not is_word_guessed(secret_word, letters_guessed) and (
+          not guesses_left == 0):
         print(divide())
         user_guess = input("Enter a letter: ")
         # if the guess is longer than one letter:
@@ -195,10 +196,11 @@ def spaceman(secret_word):
 
         # if the user enters a valid guess
         if user_guess not in letters_guessed:
-            letters_guessed.append(user_guess)  # append letter to letters_guessed
+            letters_guessed.append(user_guess)
 
         # if the guess is correct and more letters need to be guessed
-        if is_guess_in_word(user_guess, secret_word) and not is_word_guessed(secret_word, letters_guessed):
+        if is_guess_in_word(user_guess, secret_word) and (not
+           is_word_guessed(secret_word, letters_guessed)):
             print("Your guess appears in the word!")
             print(get_guessed_word(secret_word, letters_guessed))
             print(f"You have {guesses_left} incorrect guesses left.")
@@ -208,7 +210,9 @@ def spaceman(secret_word):
             '''
             Adding Sinister Spaceman function to spaceman()
             secret_word = switch_secret_word(secret_word)  # switch the secret
-            print("You have a new word to guess: {}".format(secret_word))  #used for debugging switch_secret_word*
+            # used for debugging switch_secret_word*
+            print("You have a new word to guess:
+                   {}".format(secret_word))
             divide()
             '''
         # if the whole word has been guessed
